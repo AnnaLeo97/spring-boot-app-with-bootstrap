@@ -3,6 +3,7 @@ package springbootapp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +15,7 @@ import springbootapp.model.Role;
 import springbootapp.model.User;
 import springbootapp.repository.RoleRepository;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Controller
 @RequestMapping("/")
@@ -31,16 +29,25 @@ public class UserController {
     @GetMapping("/user")
     public String showUser(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String usernameForNavbar = user.getUsername();
+        Set<Role> rolesForNavbar = user.getRoles();
         model.addAttribute("user", user);
+        model.addAttribute("usernameForNavbar", usernameForNavbar);
+        model.addAttribute("rolesForNavbar", rolesForNavbar);
         return "user";
     }
 
     @GetMapping("/admin")
-    public ModelAndView home() {
+    public ModelAndView home(Authentication authentication) {
         List<User> listUser = userService.listAll();
+        User user = (User) authentication.getPrincipal();
         ModelAndView mav = new ModelAndView();
+        String usernameForNavbar = user.getUsername();
+        Set<Role> rolesForNavbar = user.getRoles();
         mav.setViewName("admin");
         mav.addObject("listUser", listUser);
+        mav.addObject("usernameForNavbar", usernameForNavbar);
+        mav.addObject("rolesForNavbar", rolesForNavbar);
         return mav;
     }
 

@@ -50,39 +50,37 @@
     <title>User Page</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Left</a>
-            </li>
-        </ul>
+<header id="top" class="header">
+    <div class="container-fluid bg-dark">
+        <div class="row">
+            <div class="col-lg-11 text-light">
+                <span th:text="${usernameForNavbar}" class="font-weight-bold"></span>
+                with roles:
+                <span th:text="${rolesForNavbar}" id="headerRoles" class="font-weight-bold"></span>
+            </div>
+            <div class="col-lg-1 text-right">
+                <form method="post" action="/logout">
+                    <a class="btn btn-dark" href="/logout" method="post">Logout</a>
+                </form>
+            </div>
+        </div>
     </div>
-
-    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/logout" >Logout</a>
-            </li>
-        </ul>
-    </div>
-
-</nav>
+</header>
 
 <div class="wrapper container">
 <!--    <div class="container">-->
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-2">
                 <ul class="list-group">
-                    <li class="list-group-item active text-white">
-                        <a class="nav-link" href="/user">USER</a>
+                    <li class="list-group-item">
+                        <a class="nav-link active text-white" href="/user">USER</a>
                     </li>
                 </ul>
             </div>
 <!--        </div>-->
 
 <!--        <div class="row">-->
-            <div class="col-md-10">
+            <div class="col-10">
                 <h1>User-information page</h1>
                     <div class="card">
                         <div class="card-block">
